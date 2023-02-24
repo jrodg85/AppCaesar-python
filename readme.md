@@ -1,4 +1,4 @@
-﻿# AppCaesar (Python)
+# AppCaesar (Python)
 
 **Enunciado de la práctica de Python** 
 
