@@ -4,6 +4,7 @@ Created on Fri Feb 24 09:11:32 2023
 
 @author: usriaml
 """
+
 fraseEstudio=""
 opcionMenu=""
 
@@ -11,8 +12,8 @@ print("Bienvenido a AppCaesar:")
 
 def introduzcaUnaFrase():
     global fraseEstudio
-    print("pasa por funcion introduzca una frase")
-    fraseEstudio=input("Introduzca clave: ")
+    #print("pasa por funcion introduzca una frase")
+    fraseEstudio=input("Introduzca Frase de estudio: ")
     seleccionMenu()
 
 def contarConsonantesDeLaFrase():
@@ -30,6 +31,7 @@ def mostrarParaCadaLetraCuantasVecesSeRepite():
 def mostrarLaFraseCodificadaConClaveCaesar():
     print("pasa por la funcion Mostrar la frase codificada con clave Caesar")
     seleccionMenu()
+    
 def salirDeAppCaesar():
     print("pasa por la funcion Salir del programa")
     print("borrando datos almacenados")
@@ -42,6 +44,9 @@ def salirDeAppCaesar():
 def verFraseEstudio():
     print ("La frase de estudio es: ", fraseEstudio)
     seleccionMenu()
+
+
+
 
 def seleccionMenu():
     print("""
@@ -79,4 +84,5 @@ Seleccione una opción:
     else:
         print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
         seleccionMenu()
+
 seleccionMenu()
