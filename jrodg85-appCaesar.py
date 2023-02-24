@@ -4,13 +4,15 @@ Created on Fri Feb 24 09:11:32 2023
 
 @author: usriaml
 """
-opcionMenu=""
 fraseEstudio=""
+opcionMenu=""
 
 print("Bienvenido a AppCaesar:")
 
 def introduzcaUnaFrase():
+    global fraseEstudio
     print("pasa por funcion introduzca una frase")
+    fraseEstudio=input("Introduzca clave: ")
     seleccionMenu()
 
 def contarConsonantesDeLaFrase():
@@ -30,10 +32,28 @@ def mostrarLaFraseCodificadaConClaveCaesar():
     seleccionMenu()
 def salirDeAppCaesar():
     print("pasa por la funcion Salir del programa")
+    print("borrando datos almacenados")
+    global opcionMenu
+    del (opcionMenu)
+    global fraseEstudio
+    del(fraseEstudio) 
     print("Adios")
 
+def verFraseEstudio():
+    print ("La frase de estudio es: ", fraseEstudio)
+    seleccionMenu()
+
 def seleccionMenu():
-    print("Seleccione una opción: \n1 ==> Introduzca una frase. \n2 ==> Contar cuantas consonantes hay en el texto. \n3 ==> Contar cuantas vocales hay en el texto. \n4 ==> Mostrar para cada letra cuantas veces se repite (diccionario). \n5 ==> Mostrar la frase codificada con la clave 2. \n6 ==> Salir del programa.")
+    print("""
+Seleccione una opción: 
+    1 ==> Introduzca una frase. 
+    2 ==> Contar cuantas consonantes hay en el texto. 
+    3 ==> Contar cuantas vocales hay en el texto. 
+    4 ==> Mostrar para cada letra cuantas veces se repite (diccionario). 
+    5 ==> Mostrar la frase codificada con la clave 2. 
+    6 ==> Ver la frase de estudio.
+    7 ==> Salir del programa.
+    """)
     opcionMenu=input("Selecione Opcion: ")
     if opcionMenu=="1":
         print("Ha seleccionado opcion 1")
@@ -52,6 +72,9 @@ def seleccionMenu():
         mostrarLaFraseCodificadaConClaveCaesar()
     elif opcionMenu=="6":
         print("Ha seleccionado opcion 6")
+        verFraseEstudio()
+    elif opcionMenu=="7":
+        print("Ha seleccionado opcion 7")
         salirDeAppCaesar()
     else:
         print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
