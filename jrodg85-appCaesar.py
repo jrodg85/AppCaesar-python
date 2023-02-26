@@ -82,6 +82,7 @@ Procediendo a introducir frase de estudio
 Una vez introducida la frase volvera al menu principal.""")
         introduzcaUnaFrase()
     else:
+        ## método para contar consonantes de la URL https://parzibyte.me/blog/2020/10/12/contar-vocales-python/
         contador = 0
         for letra in fraseEstudio:
             if letra.lower() in "aeiou":
@@ -100,27 +101,17 @@ Procediendo a introducir frase de estudio
 Una vez introducida la frase volvera al menu principal.""")
         introduzcaUnaFrase()
     else:
-    
+    # fuente para la realizacion del metodo tomada de la URL https://es.stackoverflow.com/questions/444688/contar-caracteres-repetidos-en-una-cadena
         letras_dic = dict()  #Guarda repetición de letras
         for letra in fraseEstudio: #Por cada letra
             if letra in letras_dic: #Si ya estaba en el dic() significa que se repite
-                if letras_dic[letra] == 1: 
+                if letras_dic[letra] >= 1: #He tenido que cambiar de la fuente original, no es == sino >=
                     letras_dic[letra] += 1 #Continua el conteo
             else:
                 letras_dic[letra] = 1 #Si la letra no esta en el diccionario, la agrega
-    
-
         print("""
 El conjunto de letras es el siguiente.
 """,letras_dic)
-    
-    
-    
-    
-    
-    
-        
-        
     seleccionMenu()
 
 def mostrarLaFraseCodificadaConClaveCaesar():
