@@ -4,13 +4,15 @@ Created on Fri Feb 24 09:11:32 2023
 
 @author: jrodg85
 """
+import sys
+import termios
+import os
 
 fraseEstudio=""
 opcionMenu=""
 
 print("Bienvenido a AppCaesar:")
 
-import os
 
 ## Metodo de borrar pantalla encontrado en https://unipython.com/como-borrar-pantalla-en-python/
 def borrarPantalla(): #Definimos la función estableciendo el nombre que queramos
@@ -18,11 +20,9 @@ def borrarPantalla(): #Definimos la función estableciendo el nombre que queramo
         os.system ("clear")
     elif os.name == "ce" or os.name == "nt" or os.name == "dos":
         os.system ("cls")
+
 ## wait for importado de la siguiente url https://es.stackoverflow.com/questions/277815/como-hago-un-presione-enter-para-continuar-en-python-3-linux
 ## De momento se queda comentado ya que en spider no funciona correctamente pero en la terminal funciona
-import sys
-import termios
-
 def wait_for(mess, *keys):
     file_descriptor = sys.stdin.fileno()
     old = termios.tcgetattr(file_descriptor)
@@ -38,13 +38,18 @@ def wait_for(mess, *keys):
                 print()
                 break
     finally:
-        termios.tcsetattr(file_descriptor, termios.TCSADRAIN, old)        
+        termios.tcsetattr(file_descriptor, termios.TCSADRAIN, old)
 
 
 def introduzcaUnaFrase():
     global fraseEstudio
     #print("pasa por funcion introduzca una frase")
-    fraseEstudio=input("Introduzca Frase de estudio: ")
+    fraseEstudio=input("Introduzca clave: ")
+    borrarPantalla()
+    verFraseEstudio()
+    print("Presione una tecla para continuar...")
+    wait_for("")
+    borrarPantalla()
     seleccionMenu()
 
 def contarConsonantesDeLaFrase():
@@ -67,15 +72,12 @@ Una vez introducida la frase volvera al menu principal.""")
                 cantidad_consonantes += 1
         print(f"En la frase '{cadena}' hay {cantidad_consonantes} consonantes")
         print("Presione una tecla para continuar...")
-# wait for comprobado que funciona en la terminal. dejamos esto de momento a 
-# modo de pruebas con un input normal             
     wait_for("")
     borrarPantalla()
-       # input ("pulsa enter para continuar // Modo pruebas ")
     seleccionMenu()
 
 def contarVocalesDeLaFrase():
-    print("pasa por funcion Contar cuantas vocales hay en el texto")
+    #print("pasa por funcion Contar cuantas vocales hay en el texto")
     if fraseEstudio == "":
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
@@ -93,8 +95,10 @@ Una vez introducida la frase volvera al menu principal.""")
     borrarPantalla()
     seleccionMenu()
 
-def mostrarParaCadaLetraCuantasVecesSeRepite(): 
-    print("pasa por la funcion Mostrar para cada letra cuantas veces se repite (diccionario) ")
+
+
+def mostrarParaCadaLetraCuantasVecesSeRepite():
+    #print("pasa por la funcion Mostrar para cada letra cuantas veces se repite (diccionario) ")
     if fraseEstudio == "":
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
@@ -103,7 +107,7 @@ Una vez introducida la frase volvera al menu principal.""")
     else:
     # fuente para la realizacion del metodo tomada de la URL https://es.stackoverflow.com/questions/444688/contar-caracteres-repetidos-en-una-cadena
         letras_dic = dict()  #Guarda repetición de letras
-        for letra in fraseEstudio: #Por cada letra
+        for letra in fraseEstudio.lower(): #Por cada letra
             if letra in letras_dic: #Si ya estaba en el dic() significa que se repite
                 if letras_dic[letra] >= 1: #He tenido que cambiar de la fuente original, no es == sino >=
                     letras_dic[letra] += 1 #Continua el conteo
@@ -112,23 +116,63 @@ Una vez introducida la frase volvera al menu principal.""")
         print("""
 El conjunto de letras es el siguiente.
 """,letras_dic)
+        print("Presione una tecla para continuar...")
+    wait_for("")
+    borrarPantalla()
     seleccionMenu()
 
 def mostrarLaFraseCodificadaConClaveCaesar():
-    print("pasa por la funcion Mostrar la frase codificada con clave Caesar")
+    #print("pasa por la funcion Mostrar la frase codificada con clave Caesar")
+    if fraseEstudio == "":
+        print("""No hay frase de estudio.
+Procediendo a introducir frase de estudio
+Una vez introducida la frase volvera al menu principal.""")
+        introduzcaUnaFrase()
+    else:
+        mensaje=fraseEstudio
+        alfabeto = "abcdefghijklmnopqrstuvwxyz"
+        alfabeto_mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        longitud_alfabeto = len(alfabeto)
+        codificado = ""
+        for letra in mensaje:
+            if not letra.isalpha() or letra.lower() == 'ñ':
+                codificado += letra
+                continue
+            valor_letra = ord(letra)
+            # Suponemos que es minúscula, así que esto comienza en 97(a) y se usará el alfabeto en minúsculas
+            alfabeto_a_usar = alfabeto
+            limite = 97  # Pero si es mayúscula, comienza en 65(A) y se usa en mayúsculas
+            if letra.isupper():
+                limite = 65
+                alfabeto_a_usar = alfabeto_mayusculas
+
+            # Rotamos la letra
+            posicion = (valor_letra - limite + 2) % longitud_alfabeto
+
+            # Convertimos el entero resultante a letra y lo concatenamos
+            codificado += alfabeto_a_usar[posicion]
+        print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado)
+        print("Presione una tecla para continuar...")
+    wait_for("")
+    borrarPantalla()
     seleccionMenu()
-    
+
+
 def salirDeAppCaesar():
-    print("Pasa por la funcion Salir del programa.")
-    print("Borrando datos almacenados.")
+    #print("pasa por la funcion Salir del programa")
+    print("borrando datos almacenados")
     global opcionMenu
     del (opcionMenu)
     global fraseEstudio
     del (fraseEstudio)
     print("Adios")
+    exit()
 
 def verFraseEstudio():
-    print ("La frase de estudio es: ", fraseEstudio)
+    print ("La frase de estudio es: '", fraseEstudio,"'")
+    print("Presione una tecla para continuar...")
+    wait_for("")
+    borrarPantalla()
     seleccionMenu()
 
 
@@ -136,48 +180,42 @@ def verFraseEstudio():
 
 def seleccionMenu():
     print("""
-Seleccione una opción: 
-    1 ==> Introduzca una frase. 
-    2 ==> Contar cuantas consonantes hay en el texto. 
-    3 ==> Contar cuantas vocales hay en el texto. 
-    4 ==> Mostrar para cada letra cuantas veces se repite (diccionario). 
-    5 ==> Mostrar la frase codificada con la clave 2. 
+Seleccione una opción:
+    1 ==> Introduzca una frase.
+    2 ==> Contar cuantas consonantes hay en el texto.
+    3 ==> Contar cuantas vocales hay en el texto.
+    4 ==> Mostrar para cada letra cuantas veces se repite (diccionario).
+    5 ==> Mostrar la frase codificada con la clave 2.
     6 ==> Ver la frase de estudio.
     7 ==> Salir del programa.
     """)
     opcionMenu=input("Selecione Opcion: ")
     if opcionMenu=="1":
-        borrarPantalla()
-        # print("Ha seleccionado opcion 1")
+        #print("Ha seleccionado opcion 1")
         introduzcaUnaFrase()
     elif opcionMenu=="2":
-        borrarPantalla()
-        # print("Ha seleccionado opcion 2")
+        #print("Ha seleccionado opcion 2")
         contarConsonantesDeLaFrase()
     elif opcionMenu=="3":
-        borrarPantalla()
-        print("Ha seleccionado opcion 3")
+        #print("Ha seleccionado opcion 3")
         contarVocalesDeLaFrase()
     elif opcionMenu=="4":
-        borrarPantalla()
-        print("Ha seleccionado opcion 4")
+        #print("Ha seleccionado opcion 4")
         mostrarParaCadaLetraCuantasVecesSeRepite()
     elif opcionMenu=="5":
-        borrarPantalla()
-        print("Ha seleccionado opcion 5")
+        #print("Ha seleccionado opcion 5")
         mostrarLaFraseCodificadaConClaveCaesar()
     elif opcionMenu=="6":
-        borrarPantalla()
-        print("Ha seleccionado opcion 6")
+        #print("Ha seleccionado opcion 6")
         verFraseEstudio()
     elif opcionMenu=="7":
-        borrarPantalla()
-        print("Ha seleccionado opcion 7")
+        #print("Ha seleccionado opcion 7")
         salirDeAppCaesar()
     else:
-        borrarPantalla()
-        print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
+        #print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
         seleccionMenu()
 
+
 borrarPantalla()
+print("Bienvenido a AppCaesar:")
 seleccionMenu()
