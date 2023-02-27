@@ -202,7 +202,7 @@ Seleccione una opción:
         #print("Ha seleccionado opcion 7")
         salirDeAppCaesar()
     else:
-        #print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
+        print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
         seleccionMenu()
 
 borrarPantalla()
