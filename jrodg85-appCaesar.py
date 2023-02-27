@@ -129,6 +129,7 @@ Procediendo a introducir frase de estudio
 Una vez introducida la frase volvera al menu principal.""")
         introduzcaUnaFrase()
     else:
+        # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/        
         mensaje=fraseEstudio
         alfabeto = "abcdefghijklmnopqrstuvwxyz"
         alfabeto_mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
