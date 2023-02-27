@@ -13,7 +13,6 @@ opcionMenu=""
 
 print("Bienvenido a AppCaesar:")
 
-
 ## Metodo de borrar pantalla encontrado en https://unipython.com/como-borrar-pantalla-en-python/
 def borrarPantalla(): #Definimos la función estableciendo el nombre que queramos
     if os.name == "posix":
@@ -27,7 +26,6 @@ def wait_for(mess, *keys):
     file_descriptor = sys.stdin.fileno()
     old = termios.tcgetattr(file_descriptor)
     new = old[:]
-
     try:
         new[3] &= ~(termios.ICANON | termios.ECHO)
         termios.tcsetattr(file_descriptor, termios.TCSADRAIN, new)
@@ -39,7 +37,6 @@ def wait_for(mess, *keys):
                 break
     finally:
         termios.tcsetattr(file_descriptor, termios.TCSADRAIN, old)
-
 
 def introduzcaUnaFrase():
     global fraseEstudio
@@ -72,9 +69,9 @@ Una vez introducida la frase volvera al menu principal.""")
                 cantidad_consonantes += 1
         print(f"En la frase '{cadena}' hay {cantidad_consonantes} consonantes")
         print("Presione una tecla para continuar...")
-    wait_for("")
-    borrarPantalla()
-    seleccionMenu()
+        wait_for("")
+        borrarPantalla()
+        seleccionMenu()
 
 def contarVocalesDeLaFrase():
     #print("pasa por funcion Contar cuantas vocales hay en el texto")
@@ -91,11 +88,9 @@ Una vez introducida la frase volvera al menu principal.""")
                 contador += 1
         print("En la frase '", fraseEstudio, "' hay ", contador, " vocales")
         print("Presione una tecla para continuar...")
-    wait_for("")
-    borrarPantalla()
-    seleccionMenu()
-
-
+        wait_for("")
+        borrarPantalla()
+        seleccionMenu()
 
 def mostrarParaCadaLetraCuantasVecesSeRepite():
     #print("pasa por la funcion Mostrar para cada letra cuantas veces se repite (diccionario) ")
@@ -117,9 +112,9 @@ Una vez introducida la frase volvera al menu principal.""")
 El conjunto de letras es el siguiente.
 """,letras_dic)
         print("Presione una tecla para continuar...")
-    wait_for("")
-    borrarPantalla()
-    seleccionMenu()
+        wait_for("")
+        borrarPantalla()
+        seleccionMenu()
 
 def mostrarLaFraseCodificadaConClaveCaesar():
     #print("pasa por la funcion Mostrar la frase codificada con clave Caesar")
@@ -154,10 +149,9 @@ Una vez introducida la frase volvera al menu principal.""")
             codificado += alfabeto_a_usar[posicion]
         print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado)
         print("Presione una tecla para continuar...")
-    wait_for("")
-    borrarPantalla()
-    seleccionMenu()
-
+        wait_for("")
+        borrarPantalla()
+        seleccionMenu()
 
 def salirDeAppCaesar():
     #print("pasa por la funcion Salir del programa")
@@ -175,9 +169,6 @@ def verFraseEstudio():
     wait_for("")
     borrarPantalla()
     seleccionMenu()
-
-
-
 
 def seleccionMenu():
     print("""
@@ -215,7 +206,6 @@ Seleccione una opción:
     else:
         #print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
         seleccionMenu()
-
 
 borrarPantalla()
 print("Bienvenido a AppCaesar:")
