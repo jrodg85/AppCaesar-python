@@ -11,8 +11,6 @@ import os
 fraseEstudio=""
 opcionMenu=""
 
-print("Bienvenido a AppCaesar:")
-
 ## Metodo de borrar pantalla encontrado en https://unipython.com/como-borrar-pantalla-en-python/
 def borrarPantalla(): #Definimos la función estableciendo el nombre que queramos
     if os.name == "posix":
