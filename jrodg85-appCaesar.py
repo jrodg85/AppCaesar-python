@@ -11,6 +11,18 @@ import os
 fraseEstudio=""
 opcionMenu=""
 
+
+def noHayFraseEstudio():
+        print("""No hay frase de estudio.
+Procediendo a introducir frase de estudio
+Una vez introducida la frase volvera al menu principal.""")
+        introduzcaUnaFrase()
+        
+def volverAMenuPrincipal():
+    wait_for("")
+    borrarPantalla()
+    seleccionMenu()
+
 ## Metodo de borrar pantalla encontrado en https://unipython.com/como-borrar-pantalla-en-python/
 def borrarPantalla(): #Definimos la función estableciendo el nombre que queramos
     if os.name == "posix":
@@ -42,16 +54,11 @@ def introduzcaUnaFrase():
     borrarPantalla()
     verFraseEstudio()
     print("Presione una tecla para continuar...")
-    wait_for("")
-    borrarPantalla()
-    seleccionMenu()
+    volverAMenuPrincipal()
 
 def contarConsonantesDeLaFrase():
     if fraseEstudio == "":
-        print("""No hay frase de estudio.
-Procediendo a introducir frase de estudio
-Una vez introducida la frase volvera al menu principal.""")
-        introduzcaUnaFrase()
+        noHayFraseEstudio()
     else:
         ## metodo para contar consonantes en la URL https://parzibyte.me/blog/2020/10/18/python-contar-consonantes-cadena/
         def es_vocal(letra):
@@ -65,16 +72,11 @@ Una vez introducida la frase volvera al menu principal.""")
                 cantidad_consonantes += 1
         print(f""""En la frase '{cadena}' hay {cantidad_consonantes} consonantes
 Presione una tecla para continuar...""")
-        wait_for("")
-        borrarPantalla()
-        seleccionMenu()
+        volverAMenuPrincipal()
 
 def contarVocalesDeLaFrase():
     if fraseEstudio == "":
-        print("""No hay frase de estudio.
-Procediendo a introducir frase de estudio
-Una vez introducida la frase volvera al menu principal.""")
-        introduzcaUnaFrase()
+        noHayFraseEstudio()
     else:
         ## método para contar consonantes de la URL https://parzibyte.me/blog/2020/10/12/contar-vocales-python/
         contador = 0
@@ -83,16 +85,11 @@ Una vez introducida la frase volvera al menu principal.""")
                 contador += 1
         print("En la frase '", fraseEstudio, "' hay ", contador, """ vocales"
 Presione una tecla para continuar...""")
-        wait_for("")
-        borrarPantalla()
-        seleccionMenu()
+        volverAMenuPrincipal()
 
 def mostrarParaCadaLetraCuantasVecesSeRepite():
     if fraseEstudio == "":
-        print("""No hay frase de estudio.
-Procediendo a introducir frase de estudio
-Una vez introducida la frase volvera al menu principal.""")
-        introduzcaUnaFrase()
+        noHayFraseEstudio()
     else:
     # fuente para la realizacion del metodo tomada de la URL https://es.stackoverflow.com/questions/444688/contar-caracteres-repetidos-en-una-cadena
         letras_dic = dict()  #Guarda repetición de letras
@@ -106,17 +103,16 @@ Una vez introducida la frase volvera al menu principal.""")
 El conjunto de letras es el siguiente.
 """,letras_dic, """)
 Presione una tecla para continuar...""")
-        wait_for("")
-        borrarPantalla()
-        seleccionMenu()
+        volverAMenuPrincipal()
 
 def codificadcionClaveCaesarRotacion2():
+    global opcionMenu
     if fraseEstudio == "":
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
 Una vez introducida la frase volvera al menu principal.""")
         introduzcaUnaFrase()
-    else:
+    elif opcionMenu=="5":
         # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/
         mensaje=fraseEstudio
         rotaciones=2
@@ -143,17 +139,8 @@ Una vez introducida la frase volvera al menu principal.""")
             codificado += alfabeto_a_usar[posicion]
         print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado,"""
 Presione una tecla para continuar...""")
-        wait_for("")
-        borrarPantalla()
-        seleccionMenu()
-
-def decodificadcionClaveCaesarRotacion2():
-    if fraseEstudio == "":
-        print("""No hay frase de estudio.
-Procediendo a introducir frase de estudio
-Una vez introducida la frase volvera al menu principal.""")
-        introduzcaUnaFrase()
-    else:
+        volverAMenuPrincipal()
+    elif opcionMenu=="6":
         # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/
         mensaje=fraseEstudio
         rotaciones=2
@@ -180,10 +167,8 @@ Una vez introducida la frase volvera al menu principal.""")
             codificado += alfabeto_a_usar[posicion]
         print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado,"""
 Presione una tecla para continuar...""")
-        wait_for("")
-        borrarPantalla()
-        seleccionMenu()
-
+        volverAMenuPrincipal()
+    
 def salirDeAppCaesar():
     print("borrando datos almacenados")
     global opcionMenu
@@ -196,11 +181,10 @@ def salirDeAppCaesar():
 def verFraseEstudio():
     print ("La frase de estudio es: '", fraseEstudio,"""'
 Presione una tecla para continuar...""")
-    wait_for("")
-    borrarPantalla()
-    seleccionMenu()
+    volverAMenuPrincipal()
 
 def seleccionMenu():
+    global opcionMenu
     print("""
 Seleccione una opción:
     1 ==> Introduzca una frase.
@@ -224,7 +208,7 @@ Seleccione una opción:
     elif opcionMenu=="5":
         codificadcionClaveCaesarRotacion2()
     elif opcionMenu=="6":
-        decodificadcionClaveCaesarRotacion2()
+        codificadcionClaveCaesarRotacion2()
     elif opcionMenu=="7":
         verFraseEstudio()
     elif opcionMenu=="8":
