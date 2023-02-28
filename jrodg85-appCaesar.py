@@ -38,7 +38,6 @@ def wait_for(mess, *keys):
 
 def introduzcaUnaFrase():
     global fraseEstudio
-    #print("pasa por funcion introduzca una frase")
     fraseEstudio=input("Introduzca clave: ")
     borrarPantalla()
     verFraseEstudio()
@@ -48,7 +47,6 @@ def introduzcaUnaFrase():
     seleccionMenu()
 
 def contarConsonantesDeLaFrase():
-    #print("pasa por funcion Contar cuantas consonantes hay en el texto")
     if fraseEstudio == "":
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
@@ -65,14 +63,13 @@ Una vez introducida la frase volvera al menu principal.""")
         for letra in cadena_minuscula:
             if letra.isalpha() and not es_vocal(letra):
                 cantidad_consonantes += 1
-        print(f"En la frase '{cadena}' hay {cantidad_consonantes} consonantes")
-        print("Presione una tecla para continuar...")
+        print(f""""En la frase '{cadena}' hay {cantidad_consonantes} consonantes
+Presione una tecla para continuar...""")
         wait_for("")
         borrarPantalla()
         seleccionMenu()
 
 def contarVocalesDeLaFrase():
-    #print("pasa por funcion Contar cuantas vocales hay en el texto")
     if fraseEstudio == "":
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
@@ -84,14 +81,13 @@ Una vez introducida la frase volvera al menu principal.""")
         for letra in fraseEstudio:
             if letra.lower() in "aeiou":
                 contador += 1
-        print("En la frase '", fraseEstudio, "' hay ", contador, " vocales")
-        print("Presione una tecla para continuar...")
+        print("En la frase '", fraseEstudio, "' hay ", contador, """ vocales"
+Presione una tecla para continuar...""")
         wait_for("")
         borrarPantalla()
         seleccionMenu()
 
 def mostrarParaCadaLetraCuantasVecesSeRepite():
-    #print("pasa por la funcion Mostrar para cada letra cuantas veces se repite (diccionario) ")
     if fraseEstudio == "":
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
@@ -108,22 +104,22 @@ Una vez introducida la frase volvera al menu principal.""")
                 letras_dic[letra] = 1 #Si la letra no esta en el diccionario, la agrega
         print("""
 El conjunto de letras es el siguiente.
-""",letras_dic)
-        print("Presione una tecla para continuar...")
+""",letras_dic, """)
+Presione una tecla para continuar...""")
         wait_for("")
         borrarPantalla()
         seleccionMenu()
 
-def mostrarLaFraseCodificadaConClaveCaesar():
-    #print("pasa por la funcion Mostrar la frase codificada con clave Caesar")
+def codificadcionClaveCaesarRotacion2():
     if fraseEstudio == "":
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
 Una vez introducida la frase volvera al menu principal.""")
         introduzcaUnaFrase()
     else:
-        # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/        
+        # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/
         mensaje=fraseEstudio
+        rotaciones=2
         alfabeto = "abcdefghijklmnopqrstuvwxyz"
         alfabeto_mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         longitud_alfabeto = len(alfabeto)
@@ -141,18 +137,54 @@ Una vez introducida la frase volvera al menu principal.""")
                 alfabeto_a_usar = alfabeto_mayusculas
 
             # Rotamos la letra
-            posicion = (valor_letra - limite + 2) % longitud_alfabeto
+            posicion = (valor_letra - limite + rotaciones) % longitud_alfabeto
 
             # Convertimos el entero resultante a letra y lo concatenamos
             codificado += alfabeto_a_usar[posicion]
-        print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado)
-        print("Presione una tecla para continuar...")
+        print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado,"""
+Presione una tecla para continuar...""")
+        wait_for("")
+        borrarPantalla()
+        seleccionMenu()
+
+def decodificadcionClaveCaesarRotacion2():
+    if fraseEstudio == "":
+        print("""No hay frase de estudio.
+Procediendo a introducir frase de estudio
+Una vez introducida la frase volvera al menu principal.""")
+        introduzcaUnaFrase()
+    else:
+        # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/
+        mensaje=fraseEstudio
+        rotaciones=2
+        alfabeto = "abcdefghijklmnopqrstuvwxyz"
+        alfabeto_mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        longitud_alfabeto = len(alfabeto)
+        codificado = ""
+        for letra in mensaje:
+            if not letra.isalpha() or letra.lower() == 'ñ':
+                codificado += letra
+                continue
+            valor_letra = ord(letra)
+            # Suponemos que es minúscula, así que esto comienza en 97(a) y se usará el alfabeto en minúsculas
+            alfabeto_a_usar = alfabeto
+            limite = 97  # Pero si es mayúscula, comienza en 65(A) y se usa en mayúsculas
+            if letra.isupper():
+                limite = 65
+                alfabeto_a_usar = alfabeto_mayusculas
+
+            # Rotamos la letra
+            posicion = (valor_letra - limite - rotaciones) % longitud_alfabeto
+
+            # Convertimos el entero resultante a letra y lo concatenamos
+            codificado += alfabeto_a_usar[posicion]
+        print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado,"""
+Presione una tecla para continuar...""")
         wait_for("")
         borrarPantalla()
         seleccionMenu()
 
 def salirDeAppCaesar():
-    #print("pasa por la funcion Salir del programa")
     print("borrando datos almacenados")
     global opcionMenu
     del (opcionMenu)
@@ -162,8 +194,8 @@ def salirDeAppCaesar():
     exit()
 
 def verFraseEstudio():
-    print ("La frase de estudio es: '", fraseEstudio,"'")
-    print("Presione una tecla para continuar...")
+    print ("La frase de estudio es: '", fraseEstudio,"""'
+Presione una tecla para continuar...""")
     wait_for("")
     borrarPantalla()
     seleccionMenu()
@@ -176,30 +208,26 @@ Seleccione una opción:
     3 ==> Contar cuantas vocales hay en el texto.
     4 ==> Mostrar para cada letra cuantas veces se repite (diccionario).
     5 ==> Mostrar la frase codificada con la clave 2.
-    6 ==> Ver la frase de estudio.
-    7 ==> Salir del programa.
+    6 ==> Al insertar una frase codificada, esta la decodificará con clave 2.
+    7 ==> Ver la frase de estudio.
+    8 ==> Salir del programa.
     """)
     opcionMenu=input("Selecione Opcion: ")
     if opcionMenu=="1":
-        #print("Ha seleccionado opcion 1")
         introduzcaUnaFrase()
     elif opcionMenu=="2":
-        #print("Ha seleccionado opcion 2")
         contarConsonantesDeLaFrase()
     elif opcionMenu=="3":
-        #print("Ha seleccionado opcion 3")
         contarVocalesDeLaFrase()
     elif opcionMenu=="4":
-        #print("Ha seleccionado opcion 4")
         mostrarParaCadaLetraCuantasVecesSeRepite()
     elif opcionMenu=="5":
-        #print("Ha seleccionado opcion 5")
-        mostrarLaFraseCodificadaConClaveCaesar()
+        codificadcionClaveCaesarRotacion2()
     elif opcionMenu=="6":
-        #print("Ha seleccionado opcion 6")
-        verFraseEstudio()
+        decodificadcionClaveCaesarRotacion2()
     elif opcionMenu=="7":
-        #print("Ha seleccionado opcion 7")
+        verFraseEstudio()
+    elif opcionMenu=="8":
         salirDeAppCaesar()
     else:
         print("Seleccion incorrecta, ha seleccionado ", opcionMenu)
