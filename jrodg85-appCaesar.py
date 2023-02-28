@@ -11,7 +11,6 @@ import os
 fraseEstudio=""
 opcionMenu=""
 
-
 def noHayFraseEstudio():
         print("""No hay frase de estudio.
 Procediendo a introducir frase de estudio
@@ -112,7 +111,7 @@ def codificadcionClaveCaesarRotacion2():
 Procediendo a introducir frase de estudio
 Una vez introducida la frase volvera al menu principal.""")
         introduzcaUnaFrase()
-    elif opcionMenu=="5":
+    else:
         # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/
         mensaje=fraseEstudio
         rotaciones=2
@@ -120,54 +119,48 @@ Una vez introducida la frase volvera al menu principal.""")
         alfabeto_mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         longitud_alfabeto = len(alfabeto)
         codificado = ""
-        for letra in mensaje:
-            if not letra.isalpha() or letra.lower() == 'ñ':
-                codificado += letra
-                continue
-            valor_letra = ord(letra)
-            # Suponemos que es minúscula, así que esto comienza en 97(a) y se usará el alfabeto en minúsculas
-            alfabeto_a_usar = alfabeto
-            limite = 97  # Pero si es mayúscula, comienza en 65(A) y se usa en mayúsculas
-            if letra.isupper():
-                limite = 65
-                alfabeto_a_usar = alfabeto_mayusculas
-
-            # Rotamos la letra
-            posicion = (valor_letra - limite + rotaciones) % longitud_alfabeto
-
-            # Convertimos el entero resultante a letra y lo concatenamos
-            codificado += alfabeto_a_usar[posicion]
-        print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado,"""
-Presione una tecla para continuar...""")
-        volverAMenuPrincipal()
-    elif opcionMenu=="6":
-        # Fuente utilizada para este apartado, es la siguiente URL https://parzibyte.me/blog/2018/12/10/cifrado-cesar-python/
-        mensaje=fraseEstudio
-        rotaciones=2
-        alfabeto = "abcdefghijklmnopqrstuvwxyz"
-        alfabeto_mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        longitud_alfabeto = len(alfabeto)
-        codificado = ""
-        for letra in mensaje:
-            if not letra.isalpha() or letra.lower() == 'ñ':
-                codificado += letra
-                continue
-            valor_letra = ord(letra)
-            # Suponemos que es minúscula, así que esto comienza en 97(a) y se usará el alfabeto en minúsculas
-            alfabeto_a_usar = alfabeto
-            limite = 97  # Pero si es mayúscula, comienza en 65(A) y se usa en mayúsculas
-            if letra.isupper():
-                limite = 65
-                alfabeto_a_usar = alfabeto_mayusculas
-
-            # Rotamos la letra
-            posicion = (valor_letra - limite - rotaciones) % longitud_alfabeto
-
-            # Convertimos el entero resultante a letra y lo concatenamos
-            codificado += alfabeto_a_usar[posicion]
-        print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado,"""
-Presione una tecla para continuar...""")
-        volverAMenuPrincipal()
+        if opcionMenu=="5":
+            for letra in mensaje:
+                if not letra.isalpha() or letra.lower() == 'ñ':
+                    codificado += letra
+                    continue
+                valor_letra = ord(letra)
+                # Suponemos que es minúscula, así que esto comienza en 97(a) y se usará el alfabeto en minúsculas
+                alfabeto_a_usar = alfabeto
+                limite = 97  # Pero si es mayúscula, comienza en 65(A) y se usa en mayúsculas
+                if letra.isupper():
+                    limite = 65
+                    alfabeto_a_usar = alfabeto_mayusculas
+    
+                # Rotamos la letra
+                posicion = (valor_letra - limite + rotaciones) % longitud_alfabeto
+    
+                # Convertimos el entero resultante a letra y lo concatenamos
+                codificado += alfabeto_a_usar[posicion]
+            print("La frase '", fraseEstudio, "' tiene como codigo la siguiente frase: \n", codificado,"""
+    Presione una tecla para continuar...""")
+            volverAMenuPrincipal()
+        elif opcionMenu=="6":
+            for letra in mensaje:
+                if not letra.isalpha() or letra.lower() == 'ñ':
+                    codificado += letra
+                    continue
+                valor_letra = ord(letra)
+                # Suponemos que es minúscula, así que esto comienza en 97(a) y se usará el alfabeto en minúsculas
+                alfabeto_a_usar = alfabeto
+                limite = 97  # Pero si es mayúscula, comienza en 65(A) y se usa en mayúsculas
+                if letra.isupper():
+                    limite = 65
+                    alfabeto_a_usar = alfabeto_mayusculas
+    
+                # Rotamos la letra
+                posicion = (valor_letra - limite - rotaciones) % longitud_alfabeto
+    
+                # Convertimos el entero resultante a letra y lo concatenamos
+                codificado += alfabeto_a_usar[posicion]
+            print("La frase '", fraseEstudio, "' tiene decodificado la siguiente frase: \n", codificado,"""
+    Presione una tecla para continuar...""")
+            volverAMenuPrincipal()
     
 def salirDeAppCaesar():
     print("borrando datos almacenados")
@@ -205,9 +198,7 @@ Seleccione una opción:
         contarVocalesDeLaFrase()
     elif opcionMenu=="4":
         mostrarParaCadaLetraCuantasVecesSeRepite()
-    elif opcionMenu=="5":
-        codificadcionClaveCaesarRotacion2()
-    elif opcionMenu=="6":
+    elif ((opcionMenu=="5")or(opcionMenu=="6")):
         codificadcionClaveCaesarRotacion2()
     elif opcionMenu=="7":
         verFraseEstudio()
